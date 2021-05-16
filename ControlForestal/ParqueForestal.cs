@@ -39,7 +39,10 @@ namespace ControlForestal
         /// </summary>
         private void DefinirArea()
         {
-            Console.WriteLine("Introduzca el anchura y la altura del area a controlar (use espacios entre los numeros para separar las propiedades)");
+            Console.WriteLine("Introduzca el anchura y la altura del area a controlar(Ej: 5 6 y tienen que ser valores mayores que 0) y pulse intro, despues introduca la posicion " +
+                "inicial de los drones y su orientacion(Ej: 2 4 N)  vuelva a pulsar intro(use espacios para separar los datos) e introduzca la secuencia de ordenes que debera " +
+                "realizar el dron segudias(Ej: LRM). Para dar la orden a los drones de que inicien la patrulla pulse intro sin introducir ningun dato despues de haber programado " +
+                "al menos un dron");
 
             string imput = Console.ReadLine();
 
@@ -61,19 +64,61 @@ namespace ControlForestal
                     }
                     else
                     {
-                        Console.WriteLine("ERROR Introduzca valores correctos, solo se permiten dos numeros enteros mayores que 0");
+                        Console.WriteLine("ERROR en el area. Introduzca valores correctos, solo se permiten dos numeros enteros mayores que 0");
                         DefinirArea();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("ERROR Los valores introducidos tienen que ser dos");
+                    Console.WriteLine("ERROR en el area. Los valores introducidos tienen que ser dos");
                     DefinirArea();
                 }
             }
 
+            
+            AñadirDron();
+
+        }
+
+        /// <summary>
+        /// Añade un dron al programa de patrulla aerea
+        /// </summary>
+        private void AñadirDron()
+        {
+            Console.WriteLine("Especifique las coordenadas X e Y asi como la orientacion incial del dron en el area ");
+
+            string imput = Console.ReadLine();
+            List<string> posicionInicial = imput.Split(' ').ToList();
+
+            int Xinicial = 0;
+            int Yinicial = 0;
+            char orientacionInicial = ' ';
+            char[] puntosCardinales = { 'N', 'S', 'E', 'O' };
+
+            ///Comprobamos que los datos introducidos para indicar la posicion inicial del dron son validos
+            if (posicionInicial.Count() == 3 && int.TryParse(posicionInicial[0], out Xinicial) && int.TryParse(posicionInicial[1], out Yinicial)
+                && char.TryParse(posicionInicial[2], out orientacionInicial) && posicionInicial[2].ToUpper().IndexOfAny(puntosCardinales) != -1)
+            {
+                if(!(Xinicial < LongitudX || Xinicial > LongitudX ) && !(Yinicial < LongitudY || Yinicial > LongitudY))
+                {
+                    Dron dron = new Dron(Xinicial, Yinicial, orientacionInicial);
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR Coordenadas de incio erroneas");
+                AñadirDron();
+            }
+
             Console.WriteLine("Exito");
-            DefinirArea();
+            AñadirDron();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ProgramarAccionesDron()
+        {
 
         }
 

@@ -30,19 +30,20 @@ namespace ControlForestal
         /// </summary>
         public void Iniciar()
         {
-            Console.WriteLine($"Bienvenido al programa de control de drones del parque forestal {Nombre}");
+            Console.WriteLine($"Bienvenido al programa de control de drones del parque forestal {Nombre} \n");
             DefinirArea();
         }
 
         /// <summary>
-        /// Define el area sobre el que los drones patrullaran.
+        /// Define el area sobre el que los drones patrullaran y valida que sea correcta.
         /// </summary>
         private void DefinirArea()
         {
-            Console.WriteLine("Introduzca el anchura y la altura del area a controlar(Ej: 5 6 y tienen que ser valores mayores que 0) y pulse intro, despues introduca la posicion " +
-                "inicial de los drones y su orientacion(Ej: 2 4 N)  vuelva a pulsar intro(use espacios para separar los datos) e introduzca la secuencia de ordenes que debera " +
-                "realizar el dron segudias(Ej: LRM). Para dar la orden a los drones de que inicien la patrulla pulse intro sin introducir ningun dato despues de haber programado " +
-                "al menos un dron");
+            Console.WriteLine("1-Introduzca el anchura y la altura del area a controlar(Ej: 5 6 y tienen que ser valores mayores que 0) y pulse intro \n");
+            Console.WriteLine("2-Despues introduca la posicion inicial de los drones y su orientacion(Ej: 2 4 N) y vuelva a pulsar intro(use espacios para separar los datos) \n");
+            Console.WriteLine("3-Introduzca la secuencia de ordenes que debera realizar el dron segudias(Ej: LRM). \n");
+            Console.WriteLine("4-Para dar la orden a los drones de que inicien la patrulla pulse intro sin introducir ningun dato despues de haber programado al menos un dron \n");
+            Console.WriteLine("Puede introducir tantos drones como desee siguiendo los pasos 2 y 3 de forma continuada");
 
             string imput = Console.ReadLine();
 
@@ -81,7 +82,8 @@ namespace ControlForestal
         }
 
         /// <summary>
-        /// Añade un dron al programa de patrulla aerea
+        /// Añade un dron al programa de patrulla aerea y comprueba que las coordenadas inciales sean correctas.
+        /// Recibe por entrada de consola las coordenadas X e Y de inicio del dron y su orientacion.
         /// </summary>
         private void AñadirDron()
         {
@@ -97,12 +99,11 @@ namespace ControlForestal
 
             ///Comprobamos que los datos introducidos para indicar la posicion inicial del dron son validos
             if (posicionInicial.Count() == 3 && int.TryParse(posicionInicial[0], out Xinicial) && int.TryParse(posicionInicial[1], out Yinicial)
-                && char.TryParse(posicionInicial[2], out orientacionInicial) && posicionInicial[2].ToUpper().IndexOfAny(puntosCardinales) != -1)
+                && char.TryParse(posicionInicial[2], out orientacionInicial) && posicionInicial[2].ToUpper().IndexOfAny(puntosCardinales) != -1 &&
+                !(Xinicial < LongitudX || Xinicial > LongitudX) && !(Yinicial < LongitudY || Yinicial > LongitudY))
             {
-                if(!(Xinicial < LongitudX || Xinicial > LongitudX ) && !(Yinicial < LongitudY || Yinicial > LongitudY))
-                {
                     Dron dron = new Dron(Xinicial, Yinicial, orientacionInicial);
-                }
+
             }
             else
             {
@@ -117,7 +118,7 @@ namespace ControlForestal
         /// <summary>
         /// 
         /// </summary>
-        private void ProgramarAccionesDron()
+        private void ProgramarAccionesDron(Dron dron)
         {
 
         }

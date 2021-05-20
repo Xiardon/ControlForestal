@@ -9,14 +9,22 @@ namespace ControlForestal
     /// </summary>
     public class Dron
     {
-        private int PosicionX { get; set; }
-        private int PosicionY { get; set; }
-        private char Orientacion { get; set; }
+        private Dictionary<string, int> Coordenadas { get; set; }
+        private char Orientacion { get; set; } 
+        private Dictionary<string, int> AreaPatrulla { get; set; }
+        private List<string> Ordenes { get; set; }
 
-        public Dron(int posicionInicioX, int posicionInicioY, char orientacionInicio)
+        public Dron(Dictionary<string, int> coordenadasInicio, char orientacion, List<string> ordenes, Dictionary<string, int> areaPatrulla)
+        {
+            Coordenadas = coordenadasInicio;
+            Orientacion = orientacion;
+            AreaPatrulla = areaPatrulla;
+            Ordenes = ordenes;
+        }
+
+        public void IniciarPatrulla()
         {
 
         }
-
     }
 }

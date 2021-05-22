@@ -6,7 +6,7 @@ namespace ControlForestal
     {
         static void Main(string[] args)
         {
-            ParqueForestal montserrat = new ParqueForestal("Montserrat");
+            ControlDrones montserrat = new ControlDrones("Montserrat");
             montserrat.Iniciar();
         }
     }

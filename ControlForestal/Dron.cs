@@ -70,22 +70,22 @@ namespace ControlForestal
             if (Orientacion.Equals('N')) ///Norte
             {
                 if (Coordenadas["Y"] < AreaPatrulla["Y"])
-                    Coordenadas["Y"] = Coordenadas["Y"]++;
+                    Coordenadas["Y"]++;
             }
             else if (Orientacion.Equals('S')) ///Sur
             {
                 if (Coordenadas["Y"] > 0)
-                    Coordenadas["Y"] = Coordenadas["Y"]--;
+                    Coordenadas["Y"]--;
             }
             else if (Orientacion.Equals('E')) ///Este
             {
                 if (Coordenadas["X"] < AreaPatrulla["X"])
-                    Coordenadas["X"] = Coordenadas["X"]++;
+                    Coordenadas["X"]++;
             }
             else
             {
                 if (Coordenadas["X"] > 0) ///Oeste
-                    Coordenadas["X"] = Coordenadas["X"]--;
+                    Coordenadas["X"] --;
             }
         
         }

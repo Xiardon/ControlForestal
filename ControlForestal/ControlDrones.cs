@@ -95,7 +95,7 @@ namespace ControlForestal
             bool datosValidos = posicionInicial.Count() == 3 && int.TryParse(posicionInicial[0], out Xinicial) && int.TryParse(posicionInicial[1], out Yinicial)
                 && char.TryParse(posicionInicial[2], out orientacionInicial) && posicionInicial[2].ToUpper().IndexOfAny(puntosCardinales) != -1;
 
-            if (datosValidos && (Xinicial <= LongitudAreaX || Xinicial >= LongitudAreaX) && (Yinicial <= LongitudAreaY || Yinicial >= LongitudAreaY))
+            if (datosValidos && Xinicial >= 0 && Xinicial <= LongitudAreaX && Yinicial >= 0 && Yinicial <= LongitudAreaY)
             {
                 Dictionary<string, int> coordenadas = new Dictionary<string, int>()
                 {
@@ -108,10 +108,15 @@ namespace ControlForestal
 
                 Dron dron = new Dron(coordenadas, orientacionInicial, ProgramarRutaDron(), area);
                 Drones.Add(dron);
+
+                AñadirDron();
             }
-            else if (posicionInicial.Count() == 0 && Drones.Count() > 0)
+            else if (posicionInicial.Count() == 1 && Drones.Count() > 0) ///Si no hay mas ordenes introducidas y tenemos drones los ponemos a patrullar.
             {
-                ///TODO metodo para lanzar la ejecucion de ordenes de los drones.
+                foreach (Dron dron in Drones)
+                {
+                    dron.IniciarPatrulla();
+                }
             }
             else
             {
@@ -128,9 +133,9 @@ namespace ControlForestal
         {
             char[] ordenesValidas = { 'L', 'R', 'M' };
 
-            List<string> ordenes = Console.ReadLine().ToUpper().Split().ToList();
+            List<string> ordenes = Console.ReadLine().ToUpper().ToCharArray().Select(x => x.ToString()).ToList();
 
-            if(ordenes.Count() <= 0 && !ordenes.All(x => x.IndexOfAny(ordenesValidas) != -1))
+            if(!ordenes.All(x => x.IndexOfAny(ordenesValidas) != -1))
             {
                 Console.WriteLine("ERROR en las ordenes de ruta del dron");
                 ProgramarRutaDron();
